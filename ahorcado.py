@@ -1,4 +1,6 @@
+from ntpath import join
 from random import randint
+import os
 
 def bring_line():
     list_lines = []
@@ -7,28 +9,37 @@ def bring_line():
         for line in f:
             list_lines.append(line)
     return list_lines[line_number] 
+    
 
-def comparision (palabra):
+
+def run():
+    palabra = bring_line()
+    palabra = list(palabra)
+    palabra.pop(len(palabra)-1)
+    print(palabra)
     letras = []
     for index, letra in enumerate(palabra):
         letras.append(letra)
     letras.pop(len(letras)-1)
-    print("_ "*len(letras))
+    palabra_en_juego = "_"*len(palabra)
+    palabra_en_juego = list(palabra_en_juego)
+ 
 
-    user_input = input("ingrese una letra")
-    for index, letra in enumerate(palabra):
-        if user_input == letra:
-            print("hay un match en ", index)
-    return letras    
-    # num_guiones = list(enumerate(palabra))
-    # for letra in num_guiones:
-    #     return num_guiones
-
-def run():
-    palabra = bring_line()
-    num_guiones = comparision(palabra)
-    print(num_guiones)
-
+    
+    
+    while palabra_en_juego != palabra:
+        print(palabra_en_juego, type(palabra_en_juego))
+        palabra_en_juego = list(palabra_en_juego)
+        user_input = input("ingrese una letra")
+        if user_input in palabra:           
+            for index, letra in enumerate(palabra):
+                if letra == user_input:
+                    palabra_en_juego[index] = letra
+            palabra_en_juego = "".join(palabra_en_juego)
+            palabra_en_juego = list(palabra_en_juego)
+        os.system("cls")
+    return palabra_en_juego
+    
 
 
 
