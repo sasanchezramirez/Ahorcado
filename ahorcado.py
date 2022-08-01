@@ -10,13 +10,17 @@ def bring_line():
             list_lines.append(line)
     return list_lines[line_number] 
     
-
+def normalize(s):
+    replacements = (("á", "a"), ("é", "e"), ("í", "i"), ("ó", "o"), ("ú","u"))
+    for a,b in replacements:
+        s = s.replace(a,b).replace(a.upper(), b.upper())
+    return s
 
 def run():
-    palabra = bring_line()
-    palabra = list(palabra)
+    palabrastr = bring_line()
+    palabrastr = normalize(palabrastr)
+    palabra = list(palabrastr)
     palabra.pop(len(palabra)-1)
-    print(palabra)
     letras = []
     for index, letra in enumerate(palabra):
         letras.append(letra)
@@ -28,7 +32,7 @@ def run():
     
     
     while palabra_en_juego != palabra:
-        print(palabra_en_juego, type(palabra_en_juego))
+        print(palabra_en_juego)
         palabra_en_juego = list(palabra_en_juego)
         user_input = input("ingrese una letra")
         if user_input in palabra:           
@@ -38,7 +42,8 @@ def run():
             palabra_en_juego = "".join(palabra_en_juego)
             palabra_en_juego = list(palabra_en_juego)
         os.system("cls")
-    return palabra_en_juego
+    
+    print("JUEGO TERMINADO\n", "La palabra era: ", str(palabrastr))
     
 
 
